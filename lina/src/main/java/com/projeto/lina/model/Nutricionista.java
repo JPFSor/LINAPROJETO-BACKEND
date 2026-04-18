@@ -1,8 +1,10 @@
 package com.projeto.lina.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
+@Data
 public class Nutricionista {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

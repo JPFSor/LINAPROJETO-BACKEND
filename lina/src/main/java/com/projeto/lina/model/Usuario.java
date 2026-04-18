@@ -1,24 +1,29 @@
 package com.projeto.lina.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.Date;
 import java.util.List;
 
 @Entity
+@Data
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
     private Date dataNascimento;
+    @Column(unique = true, nullable = false)
     private String email;
     private String senha;
-    private boolean assinante; //Criar model próprio?
-    @OneToMany
+    private String genero;
+    private boolean assinante;
+    @ElementCollection
+    @Enumerated(EnumType.STRING)
     private List<Restricao> restricoes;
     @ManyToOne
     private Endereco endereco;
-    @OneToOne //Quer dizer que usuários não podem ter o mesmo cardápio?
-    private Cardapio cardapio;
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private PlanoSemanal planoSemanal;
 }
