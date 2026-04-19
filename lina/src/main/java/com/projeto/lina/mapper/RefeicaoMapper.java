@@ -6,12 +6,8 @@ import lombok.*;
 
 import java.util.stream.Collectors;
 
-@Builder
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class RefeicaoMapper {
+    private RefeicaoMapper() {}
 
     public static RefeicaoResponseDTO toDTO(Refeicao r) {
         RefeicaoResponseDTO dto = new RefeicaoResponseDTO();

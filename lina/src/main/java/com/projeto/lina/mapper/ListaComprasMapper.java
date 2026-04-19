@@ -8,12 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@Builder
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class ListaComprasMapper {
+    private ListaComprasMapper() {}
 
     public static List<ListaComprasDTO> toDTO(
             Map<CategoriaIngrediente, Map<String, Double>> dados) {

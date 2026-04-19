@@ -1,9 +1,9 @@
 package com.projeto.lina.model;
 
 public enum Restricao {
-    GLUTEN,
+    CELIACO,
     LACTOSE,
     VEGANO,
     VEGETARIANO,
-    SEM_ACUCAR
+    DIABETICO
 }

@@ -6,12 +6,8 @@ import lombok.*;
 
 import java.util.stream.Collectors;
 
-@Builder
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class CardapioMapper {
+    private CardapioMapper() {}
 
     public static CardapioDTO toDTO(Cardapio c) {
         CardapioDTO dto = new CardapioDTO();
