@@ -1,10 +1,14 @@
 package com.projeto.lina.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Nutricionista {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,6 +20,7 @@ public class Nutricionista {
     private String especialidade;
     private double avaliacao;
     private int atendimentosRealizados;
+    private String imagemUrl;
     @ManyToOne
     private Endereco endereco;
 }

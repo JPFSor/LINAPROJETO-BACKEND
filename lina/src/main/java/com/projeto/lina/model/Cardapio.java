@@ -1,12 +1,16 @@
 package com.projeto.lina.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(
         uniqueConstraints = @UniqueConstraint(
                 columnNames = {"plano_semanal_id", "diaSemana"}

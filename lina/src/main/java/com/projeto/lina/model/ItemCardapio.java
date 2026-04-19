@@ -1,10 +1,14 @@
 package com.projeto.lina.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(
         uniqueConstraints = @UniqueConstraint(
                 columnNames = {"cardapio_id", "periodo", "refeicao_id"}
@@ -21,5 +25,5 @@ public class ItemCardapio {
     @JoinColumn(name = "refeicao_id", nullable = false)
     private Refeicao refeicao;
     @Enumerated(EnumType.STRING)
-    private PeriodoDia periodoDia;
+    private PeriodoDia periodo;
 }

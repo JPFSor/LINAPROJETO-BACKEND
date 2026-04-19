@@ -1,18 +1,22 @@
 package com.projeto.lina.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Refeicao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-    private String tempoPreparo;
+    private Integer tempoPreparo;
     private double calorias;
     @Column(length = 2000)
     private String modoPreparo;
