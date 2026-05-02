@@ -10,7 +10,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Table(
         uniqueConstraints = @UniqueConstraint(
                 columnNames = {"plano_semanal_id", "diaSemana"}

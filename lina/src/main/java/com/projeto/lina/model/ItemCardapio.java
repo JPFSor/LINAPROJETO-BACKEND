@@ -8,7 +8,6 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Table(
         uniqueConstraints = @UniqueConstraint(
                 columnNames = {"cardapio_id", "periodo", "refeicao_id"}
