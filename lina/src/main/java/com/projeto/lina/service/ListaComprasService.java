@@ -1,9 +1,10 @@
 package com.projeto.lina.service;
 
-import com.projeto.lina.model.*;
-import com.projeto.lina.repository.*;
-import com.projeto.lina.mapper.ListaComprasMapper;
 import com.projeto.lina.dto.ListaComprasDTO;
+import com.projeto.lina.exception.EntidadeNaoEncontradaException;
+import com.projeto.lina.mapper.ListaComprasMapper;
+import com.projeto.lina.model.*;
+import com.projeto.lina.repository.PlanoSemanalRepository;
 
 import org.springframework.stereotype.Service;
 
@@ -21,41 +22,27 @@ public class ListaComprasService {
     public List<ListaComprasDTO> gerarLista(Long usuarioId) {
 
         PlanoSemanal plano = planoRepository.findByUsuarioId(usuarioId)
-                .orElseThrow(() -> new RuntimeException("Plano não encontrado"));
+                .orElseThrow(() -> new EntidadeNaoEncontradaException("Plano não encontrado para este usuário"));
 
         Map<Ingrediente, Double> totalIngredientes = new HashMap<>();
 
         for (Cardapio cardapio : plano.getCardapios()) {
             for (ItemCardapio item : cardapio.getItens()) {
-
                 Refeicao refeicao = item.getRefeicao();
-
                 if (refeicao.getIngredientes() == null) continue;
-
                 for (RefeicaoIngrediente ri : refeicao.getIngredientes()) {
-
                     if (ri.getIngrediente() == null) continue;
-
-                    totalIngredientes.merge(
-                            ri.getIngrediente(),
-                            ri.getQuantidade(),
-                            Double::sum
-                    );
+                    totalIngredientes.merge(ri.getIngrediente(), ri.getQuantidade(), Double::sum);
                 }
             }
         }
 
-        // Agrupar por categoria
         Map<CategoriaIngrediente, Map<String, Double>> agrupado = new HashMap<>();
-
         for (Map.Entry<Ingrediente, Double> entry : totalIngredientes.entrySet()) {
-
             Ingrediente ingrediente = entry.getKey();
-            Double quantidade = entry.getValue();
-
             agrupado
                     .computeIfAbsent(ingrediente.getCategoria(), k -> new HashMap<>())
-                    .put(ingrediente.getNome(), quantidade);
+                    .put(ingrediente.getNome(), entry.getValue());
         }
 
         return ListaComprasMapper.toDTO(agrupado);

@@ -1,13 +1,13 @@
 package com.projeto.lina.config;
 
 import com.projeto.lina.security.JwtAuthFilter;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -34,9 +34,15 @@ public class SecurityConfig {
                 )
 
                 .authorizeHttpRequests(auth -> auth
+
+                        // H2 console (apenas dev — desabilitado em prod via properties)
                         .requestMatchers("/h2-console/**").permitAll()
+
+                        // Login e cadastro são públicos
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/usuarios").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
+
+                        // Tudo mais exige token JWT válido
                         .anyRequest().authenticated()
                 )
 
@@ -45,7 +51,6 @@ public class SecurityConfig {
                 .build();
     }
 
-    // 🔐 ESSENCIAL
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

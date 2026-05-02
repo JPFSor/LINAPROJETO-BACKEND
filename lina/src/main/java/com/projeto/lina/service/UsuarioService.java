@@ -1,10 +1,11 @@
 package com.projeto.lina.service;
 
-import com.projeto.lina.dto.UsuarioUpdateDTO;
-import com.projeto.lina.model.Usuario;
 import com.projeto.lina.dto.UsuarioCreateDTO;
 import com.projeto.lina.dto.UsuarioResponseDTO;
+import com.projeto.lina.dto.UsuarioUpdateDTO;
+import com.projeto.lina.exception.EntidadeNaoEncontradaException;
 import com.projeto.lina.mapper.UsuarioMapper;
+import com.projeto.lina.model.Usuario;
 import com.projeto.lina.repository.UsuarioRepository;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,12 +30,14 @@ public class UsuarioService {
 
     public UsuarioResponseDTO criarUsuario(UsuarioCreateDTO dto) {
 
+        // Verifica email duplicado → 409 Conflict
+        if (usuarioRepository.findByEmail(dto.getEmail()).isPresent()) {
+            throw new IllegalStateException("Email já cadastrado");
+        }
+
         Usuario usuario = UsuarioMapper.toEntity(dto);
-
         usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
-
         usuario = usuarioRepository.save(usuario);
-
         planoService.criarPlanoParaUsuario(usuario);
 
         return UsuarioMapper.toDTO(usuario);
@@ -49,29 +52,21 @@ public class UsuarioService {
 
     public UsuarioResponseDTO buscarPorId(Long id) {
         Usuario usuario = usuarioRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-
+                .orElseThrow(() -> new EntidadeNaoEncontradaException("Usuário não encontrado"));
         return UsuarioMapper.toDTO(usuario);
     }
 
     public UsuarioResponseDTO atualizar(Long id, UsuarioUpdateDTO dto) {
-
         Usuario usuario = usuarioRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-
+                .orElseThrow(() -> new EntidadeNaoEncontradaException("Usuário não encontrado"));
         UsuarioMapper.updateEntity(usuario, dto);
-
-        usuario = usuarioRepository.save(usuario);
-
-        return UsuarioMapper.toDTO(usuario);
+        return UsuarioMapper.toDTO(usuarioRepository.save(usuario));
     }
-    
+
     public void deletar(Long id) {
-
         if (!usuarioRepository.existsById(id)) {
-            throw new RuntimeException("Usuário não encontrado");
+            throw new EntidadeNaoEncontradaException("Usuário não encontrado");
         }
-
         usuarioRepository.deleteById(id);
     }
 }
