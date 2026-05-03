@@ -5,16 +5,16 @@
 
 -- Ingredientes
 INSERT INTO ingrediente (id, nome, categoria) VALUES
-(1, 'Ovo', 'PROTEINA'),
-(2, 'Abobrinha', 'VEGETAL'),
-(3, 'Tomate', 'VEGETAL'),
-(4, 'Azeite', 'GORDURA'),
-(5, 'Peixe Tilápia', 'PROTEINA'),
-(6, 'Batata Doce', 'CARBOIDRATO'),
-(7, 'Abacate', 'GORDURA'),
-(8, 'Leite de Aveia', 'CARBOIDRATO'),
-(9, 'Arroz Integral', 'CARBOIDRATO'),
-(10, 'Feijão Carioca', 'PROTEINA');
+(1, 'Ovo', 'PROTEINAS'),
+(2, 'Abobrinha', 'FRUTAS_E_VEGETAIS'),
+(3, 'Tomate', 'FRUTAS_E_VEGETAIS'),
+(4, 'Azeite', 'OUTROS'),
+(5, 'Peixe Tilápia', 'PROTEINAS'),
+(6, 'Batata Doce', 'FRUTAS_E_VEGETAIS'),
+(7, 'Abacate', 'FRUTAS_E_VEGETAIS'),
+(8, 'Leite de Aveia', 'LATICINIOS'),
+(9, 'Arroz Integral', 'GRAOS_E_CEREAIS'),
+(10, 'Feijão Carioca', 'GRAOS_E_CEREAIS');
 
 -- Refeições
 INSERT INTO refeicao (id, nome, tempo_preparo, calorias, modo_preparo, imagem_url) VALUES
@@ -25,11 +25,11 @@ INSERT INTO refeicao (id, nome, tempo_preparo, calorias, modo_preparo, imagem_ur
 
 -- Períodos permitidos por refeição
 INSERT INTO refeicao_periodos_permitidos (refeicao_id, periodos_permitidos) VALUES
-(1, 'CAFE_MANHA'),
+(1, 'CAFE_DA_MANHA'),
 (2, 'ALMOCO'),
 (2, 'JANTAR'),
-(3, 'LANCHE_TARDE'),
-(3, 'CAFE_MANHA'),
+(3, 'LANCHE_DA_TARDE'),
+(3, 'CAFE_DA_MANHA'),
 (4, 'ALMOCO'),
 (4, 'JANTAR');
 
@@ -38,7 +38,8 @@ INSERT INTO refeicao_periodos_permitidos (refeicao_id, periodos_permitidos) VALU
 -- Omelete tem ovo — não serve para veganos
 INSERT INTO refeicao_restricoes (refeicao_id, restricoes) VALUES
 (1, 'VEGANO'),
-(1, 'VEGETARIANO');
+(2, 'VEGANO'),
+(2, 'VEGETARIANO');
 
 -- Relação refeição <-> ingredientes
 INSERT INTO refeicao_ingrediente (id, refeicao_id, ingrediente_id, quantidade, unidade) VALUES

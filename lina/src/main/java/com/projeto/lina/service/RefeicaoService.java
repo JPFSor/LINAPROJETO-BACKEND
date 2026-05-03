@@ -1,5 +1,6 @@
 package com.projeto.lina.service;
 
+import com.projeto.lina.exception.EntidadeNaoEncontradaException;
 import com.projeto.lina.model.*;
 import com.projeto.lina.repository.*;
 import com.projeto.lina.dto.RefeicaoResponseDTO;
@@ -26,7 +27,7 @@ public class RefeicaoService {
             Long usuarioId) {
 
         Usuario usuario = usuarioRepository.findById(usuarioId)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+                .orElseThrow(() -> new EntidadeNaoEncontradaException("Usuário não encontrado"));
 
         List<Refeicao> refeicoes;
 

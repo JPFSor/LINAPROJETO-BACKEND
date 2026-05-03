@@ -1,6 +1,7 @@
 package com.projeto.lina.controller;
 
 import com.projeto.lina.dto.AssinaturaResponseDTO;
+import com.projeto.lina.security.AuthUtils;
 import com.projeto.lina.service.AssinaturaService;
 
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,7 @@ public class AssinaturaController {
      */
     @GetMapping
     public ResponseEntity<AssinaturaResponseDTO> status(@PathVariable Long usuarioId) {
+        AuthUtils.verificarProprietario(usuarioId);
         return ResponseEntity.ok(assinaturaService.status(usuarioId));
     }
 

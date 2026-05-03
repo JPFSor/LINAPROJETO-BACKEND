@@ -5,7 +5,6 @@ import com.projeto.lina.dto.LoginResponseDTO;
 import com.projeto.lina.exception.CredenciaisInvalidasException;
 import com.projeto.lina.model.Usuario;
 import com.projeto.lina.repository.UsuarioRepository;
-import com.projeto.lina.security.JwtService;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

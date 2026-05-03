@@ -3,11 +3,15 @@ package com.projeto.lina.controller;
 import com.projeto.lina.dto.UsuarioCreateDTO;
 import com.projeto.lina.dto.UsuarioResponseDTO;
 import com.projeto.lina.dto.UsuarioUpdateDTO;
-
+import com.projeto.lina.security.AuthUtils;
 import com.projeto.lina.service.UsuarioService;
-import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -20,30 +24,32 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public UsuarioResponseDTO criar(@RequestBody UsuarioCreateDTO dto) {
-        return service.criarUsuario(dto);
+    public ResponseEntity<UsuarioResponseDTO> criar(@Valid @RequestBody UsuarioCreateDTO dto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.criarUsuario(dto));
     }
 
     @GetMapping
-    public List<UsuarioResponseDTO> listar() {
-        return service.listarUsuarios();
+    public Page<UsuarioResponseDTO> listar(Pageable pageable) {
+        return service.listarUsuarios(pageable);
     }
 
     @GetMapping("/{id}")
     public UsuarioResponseDTO buscar(@PathVariable Long id) {
+        AuthUtils.verificarProprietario(id);
         return service.buscarPorId(id);
     }
 
     @PutMapping("/{id}")
-    public UsuarioResponseDTO atualizar(
-            @PathVariable Long id,
-            @RequestBody UsuarioUpdateDTO dto) {
-
+    public UsuarioResponseDTO atualizar(@PathVariable Long id,
+                                        @Valid @RequestBody UsuarioUpdateDTO dto) {
+        AuthUtils.verificarProprietario(id);
         return service.atualizar(id, dto);
     }
 
     @DeleteMapping("/{id}")
-    public void deletar(@PathVariable Long id) {
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+        AuthUtils.verificarProprietario(id);
         service.deletar(id);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -3,6 +3,7 @@ package com.projeto.lina.security;
 import com.projeto.lina.model.Usuario;
 import com.projeto.lina.repository.UsuarioRepository;
 
+import com.projeto.lina.service.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
