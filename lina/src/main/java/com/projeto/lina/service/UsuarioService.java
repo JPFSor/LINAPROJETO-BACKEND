@@ -8,13 +8,9 @@ import com.projeto.lina.mapper.UsuarioMapper;
 import com.projeto.lina.model.Usuario;
 import com.projeto.lina.repository.UsuarioRepository;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 public class UsuarioService {
@@ -43,13 +39,6 @@ public class UsuarioService {
         return UsuarioMapper.toDTO(usuario);
     }
 
-    public List<UsuarioResponseDTO> listarUsuarios() {
-        return usuarioRepository.findAll()
-                .stream()
-                .map(UsuarioMapper::toDTO)
-                .toList();
-    }
-
     public UsuarioResponseDTO buscarPorId(Long id) {
         Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException("Usuário não encontrado"));
@@ -72,8 +61,4 @@ public class UsuarioService {
         usuarioRepository.deleteById(id);
     }
 
-    public Page<UsuarioResponseDTO> listarUsuarios(Pageable pageable) {
-        return usuarioRepository.findAll(pageable)
-                .map(UsuarioMapper::toDTO);
-    }
 }

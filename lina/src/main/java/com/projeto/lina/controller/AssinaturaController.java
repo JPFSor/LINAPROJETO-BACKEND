@@ -36,6 +36,7 @@ public class AssinaturaController {
      */
     @PostMapping("/ativar")
     public ResponseEntity<AssinaturaResponseDTO> ativar(@PathVariable Long usuarioId) {
+        AuthUtils.verificarProprietario(usuarioId);
         return ResponseEntity.ok(assinaturaService.ativar(usuarioId));
     }
 
@@ -45,6 +46,7 @@ public class AssinaturaController {
      */
     @DeleteMapping("/cancelar")
     public ResponseEntity<AssinaturaResponseDTO> cancelar(@PathVariable Long usuarioId) {
+        AuthUtils.verificarProprietario(usuarioId);
         return ResponseEntity.ok(assinaturaService.cancelar(usuarioId));
     }
 }

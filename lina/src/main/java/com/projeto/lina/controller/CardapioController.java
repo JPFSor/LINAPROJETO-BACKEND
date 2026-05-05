@@ -1,15 +1,9 @@
 package com.projeto.lina.controller;
 
-import com.projeto.lina.dto.AssinaturaResponseDTO;
 import com.projeto.lina.dto.CardapioDTO;
-import com.projeto.lina.exception.EntidadeNaoEncontradaException;
-import com.projeto.lina.mapper.CardapioMapper;
-import com.projeto.lina.model.PlanoSemanal;
-import com.projeto.lina.repository.PlanoSemanalRepository;
-
 import com.projeto.lina.security.AuthUtils;
-import com.projeto.lina.service.AssinaturaService;
-import org.springframework.http.ResponseEntity;
+import com.projeto.lina.service.CardapioService;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,29 +12,19 @@ import java.util.List;
 @RequestMapping("/cardapio")
 public class CardapioController {
 
-    private final PlanoSemanalRepository planoRepository;
-    private final AssinaturaService assinaturaService;
+    private final CardapioService cardapioService;
 
-    public CardapioController(PlanoSemanalRepository planoRepository, AssinaturaService assinaturaService) {
-        this.planoRepository = planoRepository;
-        this.assinaturaService = assinaturaService;
+    public CardapioController(CardapioService cardapioService) {
+        this.cardapioService = cardapioService;
     }
 
-    @GetMapping
-    public ResponseEntity<AssinaturaResponseDTO> status(@PathVariable Long usuarioId) {
-        AuthUtils.verificarProprietario(usuarioId);
-        return ResponseEntity.ok(assinaturaService.status(usuarioId));
-    }
-
+    /**
+     * GET /cardapio/{usuarioId}
+     * Retorna os 7 cardápios da semana do usuário com suas refeições.
+     */
     @GetMapping("/{usuarioId}")
     public List<CardapioDTO> listar(@PathVariable Long usuarioId) {
-
-        PlanoSemanal plano = planoRepository.findByUsuarioId(usuarioId)
-                .orElseThrow(() -> new EntidadeNaoEncontradaException("Plano não encontrado"));
-
-        return plano.getCardapios()
-                .stream()
-                .map(CardapioMapper::toDTO)
-                .toList();
+        AuthUtils.verificarProprietario(usuarioId);
+        return cardapioService.listarPorUsuario(usuarioId);
     }
 }

@@ -17,7 +17,7 @@ public class Nutricionista {
     private String crn;
     private String telefone;
     private String especialidade;
-    private double avaliacao;
+    private int avaliacao;
     private int atendimentosRealizados;
     private String imagemUrl;
     @ManyToOne

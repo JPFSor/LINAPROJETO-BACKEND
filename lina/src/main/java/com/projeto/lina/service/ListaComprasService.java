@@ -21,7 +21,7 @@ public class ListaComprasService {
 
     public List<ListaComprasDTO> gerarLista(Long usuarioId) {
 
-        PlanoSemanal plano = planoRepository.findByUsuarioId(usuarioId)
+        PlanoSemanal plano = planoRepository.findByUsuarioIdComItens(usuarioId)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException("Plano não encontrado para este usuário"));
 
         Map<Ingrediente, Double> totalIngredientes = new HashMap<>();

@@ -15,7 +15,7 @@ public class NutricionistaResponseDTO {
     private String telefone;
     private String email;
     private String imagemUrl;
-    private double avaliacao;
+    private int avaliacao;
     private int atendimentosRealizados;
 
     // Endereço desnormalizado para a tela (ex: "Sorocaba, SP")
