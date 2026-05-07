@@ -1,54 +1,206 @@
 -- =============================================
 -- Lina - V3: Seed de refeições e ingredientes (produção)
--- Roda automaticamente via Flyway no perfil prod.
+-- Dados extraídos do Notion exportado pelo time.
+-- IDs de refeição correspondem aos IDs originais do Notion.
 -- =============================================
 
--- Ingredientes
+-- ── INGREDIENTES ──────────────────────────────
 INSERT INTO ingrediente (id, nome, categoria) VALUES
-(1,  'Ovo',            'PROTEINAS'),
-(2,  'Abobrinha',      'FRUTAS_E_VEGETAIS'),
-(3,  'Tomate',         'FRUTAS_E_VEGETAIS'),
-(4,  'Azeite',         'OUTROS'),
-(5,  'Peixe Tilápia',  'PROTEINAS'),
-(6,  'Batata Doce',    'FRUTAS_E_VEGETAIS'),
-(7,  'Abacate',        'FRUTAS_E_VEGETAIS'),
-(8,  'Leite de Aveia', 'LATICINIOS'),
-(9,  'Arroz Integral', 'GRAOS_E_CEREAIS'),
-(10, 'Feijão Carioca', 'GRAOS_E_CEREAIS');
+(1,  'Ovo',               'PROTEINAS'),
+(2,  'Tomate',            'FRUTAS_E_VEGETAIS'),
+(3,  'Cebola',            'FRUTAS_E_VEGETAIS'),
+(4,  'Pimentão',          'FRUTAS_E_VEGETAIS'),
+(5,  'Azeite',            'OUTROS'),
+(6,  'Iogurte',           'LATICINIOS'),
+(7,  'Banana',            'FRUTAS_E_VEGETAIS'),
+(8,  'Chia',              'GRAOS_E_CEREAIS'),
+(9,  'Goma de Tapioca',   'GRAOS_E_CEREAIS'),
+(10, 'Queijo',            'LATICINIOS'),
+(11, 'Leite',             'LATICINIOS'),
+(12, 'Aveia',             'GRAOS_E_CEREAIS'),
+(13, 'Frango',            'PROTEINAS'),
+(14, 'Arroz',             'GRAOS_E_CEREAIS'),
+(15, 'Salada (mix)',      'FRUTAS_E_VEGETAIS'),
+(16, 'Carne Bovina',      'PROTEINAS'),
+(17, 'Batata Doce',       'FRUTAS_E_VEGETAIS'),
+(18, 'Filé de Peixe',     'PROTEINAS'),
+(19, 'Legumes (mix)',     'FRUTAS_E_VEGETAIS'),
+(20, 'Castanhas (mix)',   'OUTROS'),
+(21, 'Maçã',              'FRUTAS_E_VEGETAIS'),
+(22, 'Pasta de Amendoim', 'OUTROS'),
+(23, 'Frutas (mix)',      'FRUTAS_E_VEGETAIS'),
+(24, 'Granola',           'GRAOS_E_CEREAIS'),
+(25, 'Folhas Verdes',     'FRUTAS_E_VEGETAIS'),
+(26, 'Sal',               'OUTROS');
 
--- Refeições
+-- ── REFEIÇÕES ─────────────────────────────────
 INSERT INTO refeicao (id, nome, tempo_preparo, calorias, modo_preparo, imagem_url) VALUES
-(1, 'Omelete com Vegetais',        15, 280, 'Bata 3 ovos, misture a abobrinha e o tomate picados. Cozinhe em frigideira antiaderente com azeite por 5 min.', NULL),
-(2, 'Peixe Assado com Batata Doce', 30, 420, 'Tempere o peixe com sal e limão. Asse a 180°C por 20 min. Cozinhe a batata doce no vapor.',                   NULL),
-(3, 'Vitamina de Abacate',          10, 310, 'Bata o abacate com leite de aveia e mel a gosto no liquidificador.',                                            NULL),
-(4, 'Arroz com Feijão',             40, 380, 'Cozinhe o arroz integral separado. Refogue o feijão com alho e sal.',                                           NULL);
+(1,  'Omelete com Legumes',    10, 220,
+     '1. Quebre os ovos em uma tigela. 2. Bata até ficar homogêneo. 3. Aqueça o azeite. 4. Refogue os legumes. 5. Adicione os ovos. 6. Cozinhe até firmar. 7. Sirva.',
+     'https://drive.google.com/file/d/1_Ezukv-5cm4KP1Vkbt12edARQL0G5Ial/view'),
+(2,  'Iogurte com Frutas',     5,  180,
+     '1. Coloque o iogurte na tigela. 2. Corte a banana. 3. Adicione ao iogurte. 4. Acrescente a chia. 5. Misture e sirva.',
+     'https://drive.google.com/file/d/1sPEt72SQp0cY81djkZhKvxP6_C-kdth8/view'),
+(3,  'Tapioca com Queijo',     8,  250,
+     '1. Aqueça a frigideira. 2. Espalhe a tapioca. 3. Aguarde firmar. 4. Adicione o queijo. 5. Dobre. 6. Sirva.',
+     'https://drive.google.com/file/d/1xbpzD1MHC_SXImYsgqHgbkPPBJnbuavP/view'),
+(4,  'Vitamina de Banana',     5,  210,
+     '1. Corte a banana. 2. Coloque no liquidificador. 3. Adicione leite e aveia. 4. Bata por 1 minuto. 5. Sirva.',
+     'https://drive.google.com/file/d/1wc5PpPl1EETnd0yv-W6Mofp8Jq1fdzFC/view'),
+(5,  'Frango com Arroz',       25, 400,
+     '1. Tempere o frango. 2. Grelhe por 5-7 min cada lado. 3. Cozinhe o arroz. 4. Prepare a salada. 5. Monte o prato.',
+     'https://drive.google.com/file/d/18bwglLwymT2CDWrW-GWzGmf40Cd4TrlN/view'),
+(6,  'Carne com Batata Doce',  30, 420,
+     '1. Corte a batata. 2. Cozinhe por 15 min. 3. Tempere a carne. 4. Grelhe por 4-6 min. 5. Sirva.',
+     'https://drive.google.com/file/d/1iSHlmxPhQ8XIUnKj-7Kox3xPRbgWrzwk/view'),
+(7,  'Peixe com Legumes',      25, 350,
+     '1. Tempere o peixe. 2. Corte os legumes. 3. Coloque na assadeira. 4. Asse por 20 min. 5. Sirva.',
+     'https://drive.google.com/file/d/1hYujTnTz0EhqvL-EJUP0aXFEutFRLbi1/view'),
+(8,  'Omelete Completo',       15, 300,
+     '1. Bata os ovos. 2. Refogue os legumes. 3. Adicione os ovos. 4. Cozinhe até firmar. 5. Sirva.',
+     'https://drive.google.com/file/d/1G3cxbOC3MS8Yh2K7OyTBr6VtDrKINKhC/view'),
+(9,  'Mix de Castanhas',       2,  180,
+     '1. Separe a porção. 2. Consuma diretamente.',
+     'https://drive.google.com/file/d/1ERAcJaNs6Z0xzorqEHWgsWNOIt4ctx7H/view'),
+(10, 'Maçã com Pasta',         5,  200,
+     '1. Lave a maçã. 2. Corte em fatias. 3. Retire o miolo. 4. Adicione a pasta. 5. Sirva.',
+     'https://drive.google.com/file/d/1lnjo9eASvPaQBBUhK_bl_JKWdgl_mWIK/view'),
+(11, 'Smoothie',               5,  160,
+     '1. Corte as frutas. 2. Coloque no liquidificador. 3. Adicione o líquido. 4. Bata. 5. Sirva.',
+     'https://drive.google.com/file/d/10xrajIIZXlZ0SH7CMHc9QZfIF6qlBAbB/view'),
+(12, 'Sopa',                   30, 250,
+     '1. Corte o frango. 2. Corte os legumes. 3. Coloque tudo na panela. 4. Cozinhe 25 min. 5. Ajuste o sal.',
+     'https://drive.google.com/file/d/1yJf67bps2unA6zyLX9DQi-OfG_0gZBzw/view'),
+(13, 'Salada Proteica',        15, 280,
+     '1. Lave as folhas. 2. Prepare a proteína. 3. Misture tudo. 4. Tempere. 5. Sirva.',
+     'https://drive.google.com/file/d/1fSQt8DKz7Tgmc5XPxGsIIpMRa8hbIHOD/view'),
+(14, 'Omelete Leve',           10, 220,
+     '1. Quebre os ovos. 2. Bata bem. 3. Aqueça a frigideira. 4. Despeje os ovos. 5. Cozinhe até firmar. 6. Sirva.',
+     'https://drive.google.com/file/d/1X9gyPVxuzZQfx-gLtfeczgF4Gak8lZ5e/view'),
+(15, 'Tapioca com Recheio',    10, 240,
+     '1. Aqueça a frigideira. 2. Espalhe a tapioca. 3. Aguarde firmar. 4. Adicione o recheio. 5. Dobre. 6. Sirva.',
+     'https://drive.google.com/file/d/1gSkrQ47_kbBUoY33DxaSOSuwOKd8TnPw/view'),
+(17, 'Iogurte com Granola',    3,  190,
+     '1. Coloque o iogurte. 2. Adicione a granola. 3. Misture. 4. Sirva.',
+     'https://drive.google.com/file/d/1hut_9swLkrZGknZJwThhwnF5x8oohyqS/view');
 
--- Períodos permitidos por refeição
+-- ── PERÍODOS PERMITIDOS ───────────────────────
 INSERT INTO refeicao_periodos_permitidos (refeicao_id, periodos_permitidos) VALUES
-(1, 'CAFE_DA_MANHA'),
-(2, 'ALMOCO'),
-(2, 'JANTAR'),
-(3, 'LANCHE_DA_TARDE'),
-(3, 'CAFE_DA_MANHA'),
-(4, 'ALMOCO'),
-(4, 'JANTAR');
+(1,  'CAFE_DA_MANHA'),
+(2,  'CAFE_DA_MANHA'),
+(3,  'CAFE_DA_MANHA'),
+(4,  'CAFE_DA_MANHA'),
+(5,  'ALMOCO'),
+(6,  'ALMOCO'),
+(7,  'ALMOCO'),
+(8,  'ALMOCO'),
+(9,  'LANCHE_DA_TARDE'),
+(10, 'LANCHE_DA_TARDE'),
+(11, 'LANCHE_DA_TARDE'),
+(17, 'LANCHE_DA_TARDE'),
+(12, 'JANTAR'),
+(13, 'JANTAR'),
+(14, 'JANTAR'),
+(15, 'JANTAR');
 
--- Restrições que cada refeição NÃO atende
--- (refeições com VEGANO aqui são omitidas para usuários veganos)
+-- ── RESTRIÇÕES QUE CADA REFEIÇÃO NÃO ATENDE ──
+-- Lógica: se o usuário possui a restrição listada, a refeição NÃO é sugerida.
 INSERT INTO refeicao_restricoes (refeicao_id, restricoes) VALUES
-(1, 'VEGANO'),
-(2, 'VEGANO'),
-(2, 'VEGETARIANO');
+-- Omelete com Legumes: contém ovo
+(1,  'VEGANO'),
+-- Iogurte com Frutas: contém iogurte (lactose)
+(2,  'VEGANO'),
+(2,  'LACTOSE'),
+-- Tapioca com Queijo: contém queijo (lactose)
+(3,  'VEGANO'),
+(3,  'LACTOSE'),
+-- Vitamina de Banana: contém leite (lactose)
+(4,  'VEGANO'),
+(4,  'LACTOSE'),
+-- Frango com Arroz: contém frango
+(5,  'VEGANO'),
+(5,  'VEGETARIANO'),
+-- Carne com Batata Doce: contém carne bovina
+(6,  'VEGANO'),
+(6,  'VEGETARIANO'),
+-- Peixe com Legumes: contém peixe
+(7,  'VEGANO'),
+(7,  'VEGETARIANO'),
+-- Omelete Completo: contém ovo
+(8,  'VEGANO'),
+-- Mix de Castanhas: sem restrição (serve para todos)
+-- Maçã com Pasta: sem restrição (serve para todos)
+-- Smoothie: sem restrição (serve para todos)
+-- Iogurte com Granola: contém iogurte (lactose)
+(17, 'VEGANO'),
+(17, 'LACTOSE'),
+-- Sopa: contém frango
+(12, 'VEGANO'),
+(12, 'VEGETARIANO'),
+-- Salada Proteica: contém frango ou ovo (ingrediente padrão: frango)
+(13, 'VEGANO'),
+-- Omelete Leve: contém ovo
+(14, 'VEGANO'),
+-- Tapioca com Recheio: recheio padrão pode conter proteína animal
+(15, 'VEGANO');
 
--- Relação refeição <-> ingredientes (com quantidades)
+-- ── INGREDIENTES POR REFEIÇÃO ─────────────────
 INSERT INTO refeicao_ingrediente (id, refeicao_id, ingrediente_id, quantidade, unidade) VALUES
-(1,  1, 1,  3,   'unidades'),
-(2,  1, 2,  100, 'g'),
-(3,  1, 3,  50,  'g'),
-(4,  1, 4,  10,  'ml'),
-(5,  2, 5,  200, 'g'),
-(6,  2, 6,  150, 'g'),
-(7,  3, 7,  100, 'g'),
-(8,  3, 8,  200, 'ml'),
-(9,  4, 9,  100, 'g'),
-(10, 4, 10,  80, 'g');
+-- (1) Omelete com Legumes
+(1,  1,  1,  2,    'unidades'),
+(2,  1,  2,  0.5,  'xícara'),
+(3,  1,  3,  0.25, 'xícara'),
+(4,  1,  4,  0.25, 'xícara'),
+(5,  1,  5,  1,    'colher'),
+(6,  1,  26, 1,    'pitada'),
+-- (2) Iogurte com Frutas
+(7,  2,  6,  1,    'pote'),
+(8,  2,  7,  1,    'unidade'),
+(9,  2,  8,  1,    'colher'),
+-- (3) Tapioca com Queijo
+(10, 3,  9,  2,    'colheres'),
+(11, 3,  10, 1,    'fatia'),
+-- (4) Vitamina de Banana
+(12, 4,  7,  1,    'unidade'),
+(13, 4,  11, 200,  'ml'),
+(14, 4,  12, 2,    'colheres'),
+-- (5) Frango com Arroz
+(15, 5,  13, 100,  'g'),
+(16, 5,  14, 0.5,  'xícara'),
+(17, 5,  15, 1,    'xícara'),
+(18, 5,  5,  1,    'colher'),
+-- (6) Carne com Batata Doce
+(19, 6,  16, 100,  'g'),
+(20, 6,  17, 1,    'unidade'),
+-- (7) Peixe com Legumes
+(21, 7,  18, 1,    'filé'),
+(22, 7,  19, 1,    'xícara'),
+(23, 7,  5,  1,    'colher'),
+-- (8) Omelete Completo
+(24, 8,  1,  3,    'unidades'),
+(25, 8,  19, 0.5,  'xícara'),
+(26, 8,  5,  1,    'colher'),
+-- (9) Mix de Castanhas
+(27, 9,  20, 30,   'g'),
+-- (10) Maçã com Pasta
+(28, 10, 21, 1,    'unidade'),
+(29, 10, 22, 1,    'colher'),
+-- (11) Smoothie
+(30, 11, 23, 1,    'xícara'),
+(31, 11, 11, 200,  'ml'),
+-- (12) Sopa
+(32, 12, 13, 100,  'g'),
+(33, 12, 19, 1,    'xícara'),
+(34, 12, 26, 1,    'pitada'),
+-- (13) Salada Proteica
+(35, 13, 25, 1,    'xícara'),
+(36, 13, 13, 100,  'g'),
+(37, 13, 5,  1,    'colher'),
+-- (14) Omelete Leve
+(38, 14, 1,  2,    'unidades'),
+(39, 14, 26, 1,    'pitada'),
+-- (15) Tapioca com Recheio
+(40, 15, 9,  2,    'colheres'),
+-- (17) Iogurte com Granola
+(41, 17, 6,  1,    'pote'),
+(42, 17, 24, 2,    'colheres');

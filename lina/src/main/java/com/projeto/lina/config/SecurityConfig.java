@@ -2,6 +2,7 @@ package com.projeto.lina.config;
 
 import com.projeto.lina.security.JwtAuthFilter;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -20,6 +21,15 @@ import java.util.List;
 public class SecurityConfig {
 
     private final JwtAuthFilter jwtAuthFilter;
+
+    /**
+     * Lista de origens permitidas, separadas por vírgula.
+     * Dev:  ALLOWED_ORIGINS não precisa ser definida (usa o padrão "*")
+     * Prod: defina ALLOWED_ORIGINS no Railway com a URL do app, ex:
+     *       https://meuapp.com,https://www.meuapp.com
+     */
+    @Value("${cors.allowed-origins:*}")
+    private String allowedOrigins;
 
     public SecurityConfig(JwtAuthFilter jwtAuthFilter) {
         this.jwtAuthFilter = jwtAuthFilter;
@@ -45,11 +55,12 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-        // Em produção, substitua "*" pela URL real do seu app/frontend
-        config.setAllowedOriginPatterns(List.of("*"));
+        List<String> origins = List.of(allowedOrigins.split(","));
+        config.setAllowedOriginPatterns(origins);
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
-        config.setAllowCredentials(false);
+        // Credentials só faz sentido com origens explícitas, nunca com "*"
+        config.setAllowCredentials(!allowedOrigins.equals("*"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);

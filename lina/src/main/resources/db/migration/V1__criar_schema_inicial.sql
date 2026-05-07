@@ -83,7 +83,7 @@ CREATE TABLE item_cardapio (
 CREATE TABLE nutricionista (
                                id                      BIGSERIAL PRIMARY KEY,
                                atendimentos_realizados INTEGER NOT NULL,
-                               avaliacao               DOUBLE PRECISION NOT NULL,
+                               avaliacao               INTEGER NOT NULL,
                                endereco_id             BIGINT REFERENCES endereco(id),
                                crn                     VARCHAR(255),
                                email                   VARCHAR(255),

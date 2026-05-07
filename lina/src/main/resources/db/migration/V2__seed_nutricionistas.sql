@@ -11,8 +11,8 @@ INSERT INTO endereco (id, rua, numero, bairro, cidade, estado, pais) VALUES
 (3, 'Rua da Saúde',    200, 'Savassi',    'Belo Horizonte',   'MG', 'Brasil');
 
 INSERT INTO nutricionista (id, nome, email, crn, telefone, especialidade, avaliacao, atendimentos_realizados, imagem_url, endereco_id) VALUES
-(1, 'Dra. Mariana Costa',  'mariana.costa@nutricao.com',  'CRN-3/12345', '(15) 99876-5432', 'Intolerâncias Alimentares', 5.0, 150, NULL, 1),
-(2, 'Dr. Rafael Mendes',   'rafael.mendes@nutricao.com',  'CRN-3/22222', '(11) 98888-1111', 'Nutrição Esportiva',        4.8, 230, NULL, 2),
-(3, 'Dra. Camila Rocha',   'camila.rocha@nutricao.com',   'CRN-6/33333', '(31) 97777-2222', 'Veganos e Vegetarianos',    4.9, 180, NULL, 3),
-(4, 'Dra. Fernanda Lima',  'fernanda.lima@nutricao.com',  'CRN-3/44444', '(15) 96666-3333', 'Diabetes e Obesidade',      4.7, 120, NULL, 1),
-(5, 'Dr. Lucas Alves',     'lucas.alves@nutricao.com',    'CRN-3/55555', '(15) 95555-4444', 'Restrições Alimentares',    4.6,  90, NULL, 1);
+(1, 'Dra. Mariana Costa',  'mariana.costa@nutricao.com',  'CRN-3/12345', '(15) 99876-5432', 'Intolerâncias Alimentares', 5, 150, NULL, 1),
+(2, 'Dr. Rafael Mendes',   'rafael.mendes@nutricao.com',  'CRN-3/22222', '(11) 98888-1111', 'Nutrição Esportiva',        5, 230, NULL, 2),
+(3, 'Dra. Camila Rocha',   'camila.rocha@nutricao.com',   'CRN-6/33333', '(31) 97777-2222', 'Veganos e Vegetarianos',    4, 180, NULL, 3),
+(4, 'Dra. Fernanda Lima',  'fernanda.lima@nutricao.com',  'CRN-3/44444', '(15) 96666-3333', 'Diabetes e Obesidade',      4, 120, NULL, 1),
+(5, 'Dr. Lucas Alves',     'lucas.alves@nutricao.com',    'CRN-3/55555', '(15) 95555-4444', 'Restrições Alimentares',    3,  90, NULL, 1);
