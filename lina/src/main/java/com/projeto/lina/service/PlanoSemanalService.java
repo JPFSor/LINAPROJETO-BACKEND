@@ -6,6 +6,7 @@ import com.projeto.lina.repository.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 @Service
@@ -25,12 +26,10 @@ public class PlanoSemanalService {
         List<Cardapio> cardapios = new ArrayList<>();
 
         for (DiaSemana dia : DiaSemana.values()) {
-
             Cardapio cardapio = new Cardapio();
             cardapio.setDiaSemana(dia);
             cardapio.setPlanoSemanal(plano);
-            cardapio.setItens(new ArrayList<>());
-
+            cardapio.setItens(new LinkedHashSet<>()); // Set em vez de ArrayList
             cardapios.add(cardapio);
         }
 

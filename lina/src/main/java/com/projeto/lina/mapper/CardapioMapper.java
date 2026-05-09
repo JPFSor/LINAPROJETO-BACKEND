@@ -2,7 +2,6 @@ package com.projeto.lina.mapper;
 
 import com.projeto.lina.model.*;
 import com.projeto.lina.dto.*;
-import lombok.*;
 
 import java.util.stream.Collectors;
 
@@ -15,6 +14,7 @@ public class CardapioMapper {
         dto.setId(c.getId());
         dto.setDiaSemana(c.getDiaSemana());
 
+        // itens agora é Set — stream funciona normalmente
         dto.setItens(
                 c.getItens()
                         .stream()
@@ -30,10 +30,7 @@ public class CardapioMapper {
 
         dto.setId(item.getId());
         dto.setPeriodo(item.getPeriodo());
-
-        dto.setRefeicao(
-                RefeicaoMapper.toDTO(item.getRefeicao())
-        );
+        dto.setRefeicao(RefeicaoMapper.toDTO(item.getRefeicao()));
 
         return dto;
     }

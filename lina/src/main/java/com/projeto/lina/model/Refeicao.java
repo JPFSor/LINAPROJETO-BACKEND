@@ -3,7 +3,9 @@ package com.projeto.lina.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -20,15 +22,19 @@ public class Refeicao {
     @Column(length = 2000)
     private String modoPreparo;
     private String imagemUrl;
+
+    // Set em vez de List — evita MultipleBagFetchException no JOIN FETCH
     @OneToMany(mappedBy = "refeicao", cascade = CascadeType.ALL)
-    private List<RefeicaoIngrediente> ingredientes;
+    private Set<RefeicaoIngrediente> ingredientes = new LinkedHashSet<>();
+
     @ElementCollection
     @Enumerated(EnumType.STRING)
     private List<Restricao> restricoes;
+
     @ElementCollection
     @Enumerated(EnumType.STRING)
     private List<PeriodoDia> periodosPermitidos;
-    // opcional (navegação reversa)
+
     @OneToMany(mappedBy = "refeicao")
-    private List<ItemCardapio> itensCardapio;
+    private Set<ItemCardapio> itensCardapio = new LinkedHashSet<>();
 }
