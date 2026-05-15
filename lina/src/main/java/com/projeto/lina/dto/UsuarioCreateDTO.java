@@ -25,8 +25,14 @@ public class UsuarioCreateDTO {
     @Size(min = 6, message = "Senha deve ter ao menos 6 caracteres")
     private String senha;
 
+    // Android envia como lista (uso futuro)
     private List<String> restricoes;
+
+    // Android envia como string única: "VEGANO", "CELIACO", etc.
+    private String restricaoAlimentar;
+
+    // Android envia o gênero selecionado no spinner
+    private String genero;
 
     private LocalDate dataNascimento;
 }
-

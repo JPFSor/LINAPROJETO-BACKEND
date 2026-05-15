@@ -2,6 +2,7 @@ package com.projeto.lina.mapper;
 
 import com.projeto.lina.dto.UsuarioCreateDTO;
 import com.projeto.lina.dto.UsuarioUpdateDTO;
+import com.projeto.lina.model.Genero;
 import com.projeto.lina.model.Restricao;
 import com.projeto.lina.model.Usuario;
 import com.projeto.lina.dto.UsuarioResponseDTO;
@@ -21,18 +22,34 @@ public class UsuarioMapper {
         u.setEmail(dto.getEmail());
         u.setSenha(dto.getSenha());
 
-        // ✅ ADICIONADO: salva a data de nascimento no banco
+        // Salva data de nascimento
         if (dto.getDataNascimento() != null) {
             u.setDataNascimento(dto.getDataNascimento());
         }
 
-        if (dto.getRestricoes() != null) {
+        // Salva gênero (Android envia String, model espera enum Genero)
+        if (dto.getGenero() != null && !dto.getGenero().isEmpty()) {
+            try {
+                u.setGenero(Genero.valueOf(dto.getGenero().toUpperCase()));
+            } catch (IllegalArgumentException ignored) {
+                // Gênero inválido: ignora sem quebrar o cadastro
+            }
+        }
+
+        // Prioridade: lista de restrições > restrição única do Android
+        if (dto.getRestricoes() != null && !dto.getRestricoes().isEmpty()) {
             u.setRestricoes(
                     dto.getRestricoes()
                             .stream()
                             .map(Restricao::valueOf)
                             .toList()
             );
+        } else if (dto.getRestricaoAlimentar() != null && !dto.getRestricaoAlimentar().isEmpty()) {
+            try {
+                u.setRestricoes(List.of(Restricao.valueOf(dto.getRestricaoAlimentar().toUpperCase())));
+            } catch (IllegalArgumentException ignored) {
+                // Restrição inválida: ignora sem quebrar o cadastro
+            }
         }
 
         return u;
@@ -45,7 +62,6 @@ public class UsuarioMapper {
         dto.setNome(u.getNome());
         dto.setEmail(u.getEmail());
 
-        // ✅ ADICIONADO: retorna dataNascimento e assinante para o app
         dto.setDataNascimento(u.getDataNascimento());
         dto.setAssinante(u.isAssinante());
 
