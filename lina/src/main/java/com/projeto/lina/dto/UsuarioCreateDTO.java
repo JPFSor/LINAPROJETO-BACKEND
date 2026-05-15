@@ -1,5 +1,6 @@
 package com.projeto.lina.dto;
 
+import java.time.LocalDate;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -25,4 +26,7 @@ public class UsuarioCreateDTO {
     private String senha;
 
     private List<String> restricoes;
+
+    private LocalDate dataNascimento;
 }
+

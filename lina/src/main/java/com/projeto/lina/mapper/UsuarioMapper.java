@@ -21,6 +21,11 @@ public class UsuarioMapper {
         u.setEmail(dto.getEmail());
         u.setSenha(dto.getSenha());
 
+        // ✅ ADICIONADO: salva a data de nascimento no banco
+        if (dto.getDataNascimento() != null) {
+            u.setDataNascimento(dto.getDataNascimento());
+        }
+
         if (dto.getRestricoes() != null) {
             u.setRestricoes(
                     dto.getRestricoes()
@@ -39,6 +44,10 @@ public class UsuarioMapper {
         dto.setId(u.getId());
         dto.setNome(u.getNome());
         dto.setEmail(u.getEmail());
+
+        // ✅ ADICIONADO: retorna dataNascimento e assinante para o app
+        dto.setDataNascimento(u.getDataNascimento());
+        dto.setAssinante(u.isAssinante());
 
         if (u.getRestricoes() != null) {
             dto.setRestricoes(

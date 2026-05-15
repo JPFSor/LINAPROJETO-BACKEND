@@ -1,7 +1,7 @@
 package com.projeto.lina.dto;
 
 import lombok.*;
-
+import java.time.LocalDate;
 import java.util.List;
 
 @Builder
@@ -13,4 +13,6 @@ public class UsuarioResponseDTO {
     private String nome;
     private String email;
     private List<String> restricoes;
+    private LocalDate dataNascimento;
+    private boolean assinante;
 }
