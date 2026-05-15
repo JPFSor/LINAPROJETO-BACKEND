@@ -1,6 +1,5 @@
 package com.projeto.lina.dto;
 
-import java.time.LocalDate;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -25,7 +24,6 @@ public class UsuarioCreateDTO {
     @Size(min = 6, message = "Senha deve ter ao menos 6 caracteres")
     private String senha;
 
-    // Android envia como lista (uso futuro)
     private List<String> restricoes;
 
     // Android envia como string única: "VEGANO", "CELIACO", etc.
@@ -34,5 +32,6 @@ public class UsuarioCreateDTO {
     // Android envia o gênero selecionado no spinner
     private String genero;
 
-    private LocalDate dataNascimento;
+    // Recebida como String "YYYY-MM-DD" do Android e convertida no Mapper
+    private String dataNascimento;
 }
