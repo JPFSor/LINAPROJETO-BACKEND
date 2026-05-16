@@ -8,6 +8,7 @@ import com.projeto.lina.model.Usuario;
 import com.projeto.lina.dto.UsuarioResponseDTO;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UsuarioMapper {
@@ -37,9 +38,10 @@ public class UsuarioMapper {
 
         // Prioridade: lista > restrição única do Android
         if (dto.getRestricoes() != null && !dto.getRestricoes().isEmpty()) {
-            u.setRestricoes(
-                    dto.getRestricoes().stream().map(Restricao::valueOf).toList()
-            );
+            List<Restricao> parsed = parseRestricoes(dto.getRestricoes());
+            if (!parsed.isEmpty()) {
+                u.setRestricoes(parsed);
+            }
         } else if (dto.getRestricaoAlimentar() != null && !dto.getRestricaoAlimentar().isEmpty()) {
             try {
                 u.setRestricoes(List.of(Restricao.valueOf(dto.getRestricaoAlimentar().toUpperCase())));
@@ -74,12 +76,34 @@ public class UsuarioMapper {
     public static void updateEntity(Usuario usuario, UsuarioUpdateDTO dto) {
         if (dto.getNome() != null)
             usuario.setNome(dto.getNome());
-        if (dto.getEmail() != null)
-            usuario.setEmail(dto.getEmail());
-        if (dto.getRestricoes() != null) {
-            usuario.setRestricoes(
-                    dto.getRestricoes().stream().map(Restricao::valueOf).toList()
-            );
+        if (dto.getEmail() != null) {
+            String e = dto.getEmail().trim();
+            if (!e.isEmpty()) {
+                usuario.setEmail(e);
+            }
         }
+        if (dto.getRestricoes() != null) {
+            usuario.setRestricoes(parseRestricoes(dto.getRestricoes()));
+        }
+    }
+
+    private static List<Restricao> parseRestricoes(List<String> raw) {
+        if (raw == null || raw.isEmpty()) {
+            return List.of();
+        }
+        List<Restricao> out = new ArrayList<>(raw.size());
+        for (String s : raw) {
+            if (s == null) {
+                continue;
+            }
+            String t = s.trim();
+            if (t.isEmpty() || "NENHUMA".equalsIgnoreCase(t)) {
+                continue;
+            }
+            try {
+                out.add(Restricao.valueOf(t.toUpperCase()));
+            } catch (IllegalArgumentException ignored) {}
+        }
+        return out;
     }
 }

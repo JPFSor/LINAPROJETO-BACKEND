@@ -49,6 +49,14 @@ public class UsuarioService {
     public UsuarioResponseDTO atualizar(Long id, UsuarioUpdateDTO dto) {
         Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException("Usuário não encontrado"));
+        if (dto.getEmail() != null && !dto.getEmail().isBlank()) {
+            String novoEmail = dto.getEmail().trim();
+            if (!novoEmail.equalsIgnoreCase(usuario.getEmail())) {
+                if (usuarioRepository.findByEmail(novoEmail).isPresent()) {
+                    throw new IllegalStateException("Email já cadastrado");
+                }
+            }
+        }
         UsuarioMapper.updateEntity(usuario, dto);
         return UsuarioMapper.toDTO(usuarioRepository.save(usuario));
     }
