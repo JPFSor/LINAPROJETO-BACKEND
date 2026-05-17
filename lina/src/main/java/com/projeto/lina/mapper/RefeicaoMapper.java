@@ -68,14 +68,19 @@ public class RefeicaoMapper {
     }
 
     private static IngredienteItemDTO toIngredienteItemDTO(RefeicaoIngrediente ri) {
-        String nome = ri.getIngrediente() != null ? ri.getIngrediente().getNome() : "";
+        Ingrediente ingrediente = ri.getIngrediente();
+        String nome = ingrediente != null ? ingrediente.getNome() : "";
         String unidade = ri.getUnidade() != null ? ri.getUnidade().trim() : "";
         double qtd = ri.getQuantidade();
+        String categoria = ingrediente != null && ingrediente.getCategoria() != null
+                ? ingrediente.getCategoria().name()
+                : null;
 
         return IngredienteItemDTO.builder()
                 .quantidade(qtd)
                 .unidade(unidade)
                 .nome(nome)
+                .categoria(categoria)
                 .texto(formatarIngrediente(qtd, unidade, nome))
                 .build();
     }

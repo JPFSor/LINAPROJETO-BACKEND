@@ -9,4 +9,5 @@ import lombok.*;
 public class ItemListaDTO {
     private String nomeIngrediente;
     private Double quantidade;
+    private String unidade;
 }
