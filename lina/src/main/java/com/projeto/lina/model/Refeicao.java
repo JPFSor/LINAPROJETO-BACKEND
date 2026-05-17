@@ -23,7 +23,6 @@ public class Refeicao {
     private String modoPreparo;
     private String imagemUrl;
 
-    // Set em vez de List — evita MultipleBagFetchException no JOIN FETCH
     @OneToMany(mappedBy = "refeicao", cascade = CascadeType.ALL)
     private Set<RefeicaoIngrediente> ingredientes = new LinkedHashSet<>();
 
@@ -37,4 +36,7 @@ public class Refeicao {
 
     @OneToMany(mappedBy = "refeicao")
     private Set<ItemCardapio> itensCardapio = new LinkedHashSet<>();
+
+    @OneToOne(mappedBy = "refeicao", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private InformacaoNutricional informacaoNutricional;
 }

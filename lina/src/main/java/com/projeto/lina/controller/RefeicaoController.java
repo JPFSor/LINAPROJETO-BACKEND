@@ -25,4 +25,13 @@ public class RefeicaoController {
 
         return service.listarPorPeriodoEUsuario(periodo, usuarioId);
     }
+
+    @GetMapping("/{id}")
+    public RefeicaoResponseDTO buscar(
+            @PathVariable Long id,
+            @RequestParam(required = false) Long usuarioId,
+            @RequestParam(required = false) PeriodoDia periodo) {
+
+        return service.buscarPorId(id, usuarioId, periodo);
+    }
 }

@@ -7,6 +7,7 @@ import com.projeto.lina.dto.RefeicaoResponseDTO;
 import com.projeto.lina.mapper.RefeicaoMapper;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -32,7 +33,6 @@ public class RefeicaoService {
         List<Refeicao> refeicoes;
 
         if (usuario.getRestricoes() == null || usuario.getRestricoes().isEmpty()) {
-            // sem restrições → só filtra por período
             refeicoes = refeicaoRepository.findByPeriodo(periodo);
         } else {
             refeicoes = refeicaoRepository.buscarValidas(
@@ -44,5 +44,30 @@ public class RefeicaoService {
         return refeicoes.stream()
                 .map(RefeicaoMapper::toDTO)
                 .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public RefeicaoResponseDTO buscarPorId(Long id, Long usuarioId, PeriodoDia periodo) {
+        if (usuarioId != null) {
+            usuarioRepository.findById(usuarioId)
+                    .orElseThrow(() -> new EntidadeNaoEncontradaException("Usuário não encontrado"));
+        }
+
+        Refeicao refeicao = refeicaoRepository.findDetalheById(id)
+                .orElseThrow(() -> new EntidadeNaoEncontradaException("Refeição não encontrada"));
+
+        PeriodoDia periodoResolvido = resolverPeriodo(refeicao, periodo);
+        return RefeicaoMapper.toDetalheDTO(refeicao, periodoResolvido);
+    }
+
+    private static PeriodoDia resolverPeriodo(Refeicao refeicao, PeriodoDia periodoInformado) {
+        if (periodoInformado != null) {
+            return periodoInformado;
+        }
+        List<PeriodoDia> permitidos = refeicao.getPeriodosPermitidos();
+        if (permitidos != null && !permitidos.isEmpty()) {
+            return permitidos.get(0);
+        }
+        return null;
     }
 }

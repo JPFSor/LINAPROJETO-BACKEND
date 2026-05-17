@@ -15,7 +15,17 @@ public class RefeicaoResponseDTO {
     private String imagemUrl;
     private Double calorias;
     private Integer tempoPreparo;
+    private String modoPreparo;
+
+    private PeriodoDia periodo;
+    private String periodoLabel;
+
     private List<String> ingredientes;
+    private List<IngredienteItemDTO> ingredientesDetalhados;
+
     private List<String> restricoes;
+    private List<String> adequadoPara;
+
     private List<PeriodoDia> periodosPermitidos;
+    private InformacaoNutricionalDTO informacoesNutricionais;
 }
