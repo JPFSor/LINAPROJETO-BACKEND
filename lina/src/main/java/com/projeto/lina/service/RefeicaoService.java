@@ -23,6 +23,7 @@ public class RefeicaoService {
         this.usuarioRepository = usuarioRepository;
     }
 
+    @Transactional(readOnly = true)
     public List<RefeicaoResponseDTO> listarPorPeriodoEUsuario(
             PeriodoDia periodo,
             Long usuarioId) {

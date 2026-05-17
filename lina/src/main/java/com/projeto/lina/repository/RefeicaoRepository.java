@@ -22,7 +22,9 @@ public interface RefeicaoRepository extends JpaRepository<Refeicao, Long> {
     Optional<Refeicao> findDetalheById(@Param("id") Long id);
 
     @Query("""
-    SELECT r FROM Refeicao r
+    SELECT DISTINCT r FROM Refeicao r
+    LEFT JOIN FETCH r.ingredientes ri
+    LEFT JOIN FETCH ri.ingrediente
     WHERE :periodo MEMBER OF r.periodosPermitidos
     AND NOT EXISTS (
         SELECT res FROM r.restricoes res
@@ -34,7 +36,12 @@ public interface RefeicaoRepository extends JpaRepository<Refeicao, Long> {
             @Param("restricoesUsuario") List<Restricao> restricoesUsuario
     );
 
-    @Query("SELECT r FROM Refeicao r WHERE :periodo MEMBER OF r.periodosPermitidos")
-    List<Refeicao> findByPeriodo(PeriodoDia periodo);
+    @Query("""
+    SELECT DISTINCT r FROM Refeicao r
+    LEFT JOIN FETCH r.ingredientes ri
+    LEFT JOIN FETCH ri.ingrediente
+    WHERE :periodo MEMBER OF r.periodosPermitidos
+    """)
+    List<Refeicao> findByPeriodo(@Param("periodo") PeriodoDia periodo);
 }
 

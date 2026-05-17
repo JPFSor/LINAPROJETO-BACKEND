@@ -15,10 +15,14 @@ public class ListaComprasMapper {
 
         List<ListaComprasDTO> lista = new ArrayList<>();
 
-        for (CategoriaIngrediente categoria : dados.keySet()) {
+        for (CategoriaIngrediente categoria : CategoriaIngrediente.values()) {
+            List<ItemListaDTO> itens = dados.get(categoria);
+            if (itens == null || itens.isEmpty()) {
+                continue;
+            }
             ListaComprasDTO dto = new ListaComprasDTO();
             dto.setCategoria(categoria);
-            dto.setItens(new ArrayList<>(dados.get(categoria)));
+            dto.setItens(new ArrayList<>(itens));
             lista.add(dto);
         }
 
