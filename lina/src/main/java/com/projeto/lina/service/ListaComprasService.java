@@ -8,6 +8,7 @@ import com.projeto.lina.model.*;
 import com.projeto.lina.repository.PlanoSemanalRepository;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -20,6 +21,7 @@ public class ListaComprasService {
         this.planoRepository = planoRepository;
     }
 
+    @Transactional(readOnly = true)
     public List<ListaComprasDTO> gerarLista(Long usuarioId) {
 
         PlanoSemanal plano = planoRepository.findByUsuarioIdComItens(usuarioId)
