@@ -110,7 +110,7 @@ public class RefeicaoMapper {
     }
 
     static List<String> calcularAdequadoPara(List<Restricao> bloqueios) {
-        Set<Restricao> bloqueioSet = bloqueios != null
+        Set<Restricao> bloqueioSet = (bloqueios != null && !bloqueios.isEmpty())
                 ? EnumSet.copyOf(bloqueios)
                 : EnumSet.noneOf(Restricao.class);
 
