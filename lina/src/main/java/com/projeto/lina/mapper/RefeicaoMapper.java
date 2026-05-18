@@ -38,7 +38,7 @@ public class RefeicaoMapper {
         List<Restricao> bloqueios = r.getRestricoes() != null ? r.getRestricoes() : List.of();
         dto.setRestricoes(
                 bloqueios.stream()
-                        .map(Enum::name)
+                        .map(RefeicaoMapper::traduzirRestricao)
                         .collect(Collectors.toList())
         );
         dto.setAdequadoPara(calcularAdequadoPara(bloqueios));
@@ -139,6 +139,17 @@ public class RefeicaoMapper {
             case ALMOCO -> "Almoço";
             case LANCHE_DA_TARDE -> "Lanche da Tarde";
             case JANTAR -> "Jantar";
+        };
+    }
+
+    private static String traduzirRestricao(Restricao restricao) {
+        return switch (restricao) {
+            case CELIACO -> "Sem Glúten";
+            case LACTOSE -> "Sem Lactose";
+            case VEGANO -> "Vegano";
+            case VEGETARIANO -> "Vegetariano";
+            case DIABETICO -> "Diabético";
+            default -> restricao.name();
         };
     }
 
