@@ -40,6 +40,10 @@ public class RefeicaoService {
                     periodo,
                     usuario.getRestricoes()
             );
+            // Fallback: se o filtro de restrições excluiu TUDO, mostra todas do período
+            if (refeicoes.isEmpty()) {
+                refeicoes = refeicaoRepository.findByPeriodo(periodo);
+            }
         }
 
         return refeicoes.stream()
