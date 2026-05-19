@@ -3,7 +3,26 @@
 -- =============================================
 
 DELETE FROM item_cardapio;
-DELETE FROM refeicao_informacao_nutricional;
+DROP TABLE IF EXISTS refeicao_informacao_nutricional CASCADE;
+
+CREATE TABLE refeicao_informacao_nutricional (
+    refeicao_id                  BIGINT PRIMARY KEY REFERENCES refeicao(id) ON DELETE CASCADE,
+    porcoes                      INTEGER NOT NULL DEFAULT 1,
+    porcao_label                 VARCHAR(100),
+    calorias                     DOUBLE PRECISION,
+    proteina_g                   DOUBLE PRECISION,
+    carboidratos_g               DOUBLE PRECISION,
+    fibras_g                     DOUBLE PRECISION,
+    acucares_g                   DOUBLE PRECISION,
+    gordura_total_g              DOUBLE PRECISION,
+    gordura_saturada_g           DOUBLE PRECISION,
+    gordura_monoinsaturada_g     DOUBLE PRECISION,
+    gordura_poliinsaturada_g     DOUBLE PRECISION,
+    colesterol_mg                DOUBLE PRECISION,
+    sal_g                        DOUBLE PRECISION,
+    sodio_mg                     DOUBLE PRECISION,
+    potassio_mg                  DOUBLE PRECISION
+);
 DELETE FROM refeicao_periodos_permitidos;
 DELETE FROM refeicao_restricoes;
 DELETE FROM refeicao_ingrediente;
